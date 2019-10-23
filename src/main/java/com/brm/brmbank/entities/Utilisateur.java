@@ -21,6 +21,9 @@ public class Utilisateur {
 	@Column(unique = true)
     private String username;
 	
+	@Column(name="password")
+	private String password;
+	
 	@Column(name="fonction")
     private String fonction;
 	
@@ -118,6 +121,14 @@ public class Utilisateur {
 
 	public void setProfil(String profil) {
 		this.profil = profil;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 

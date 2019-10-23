@@ -2,10 +2,15 @@ package com.brm.brmbank.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="liste")
@@ -21,6 +26,29 @@ public class Liste {
 	@Column(name="nom")
 	private String nom;
 	
+	@ManyToOne(
+	          fetch = FetchType.LAZY,
+	          optional = false
+	  )
+	  @JoinColumn(
+	          name = "id_utlisateur",
+	          nullable = false
+	  )
+	  @JsonIgnore
+	  private Utilisateur utilisateur;
+	
+	
+	
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
 
 	protected Liste() {
 		super();

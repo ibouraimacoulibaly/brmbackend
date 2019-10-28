@@ -9,5 +9,7 @@ import com.brm.brmbank.entities.Utilisateur;
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
+	
+
 
 }

@@ -1,5 +1,6 @@
 package com.brm.brmbank.entities;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+
 @Entity
-@Table(name="utilisateur")
+@Table(name="user")
 public class Utilisateur {
 	
 	@Id
@@ -130,6 +133,8 @@ public class Utilisateur {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	
 	
 
 }

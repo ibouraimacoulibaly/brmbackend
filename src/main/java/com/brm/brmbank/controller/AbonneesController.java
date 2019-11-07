@@ -1,12 +1,12 @@
 package com.brm.brmbank.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.brm.brmbank.entities.Abonnees;
 import com.brm.brmbank.repository.AbonneesRepository;
@@ -25,11 +25,29 @@ public class AbonneesController {
 		
 	}
 	
-	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public String saveAbonnees(@ModelAttribute("abonnees") Abonnees abonnees) {
-	    abonnees.save(abonnees);
-	     
-	    return "redirect:/";
+	@PostMapping("save")
+	public ResponseEntity<Abonnees> saveAbonnees(@RequestBody   Abonnees abonnees) {
+		Abonnees user = abrp.save(abonnees);
+		return ResponseEntity.ok().body(user);
 	}
+
+
+	
+	@RequestMapping("/delete/{idAbonnees}")
+	public ResponseEntity<String> deleteAbonnees(@PathVariable("idAgence") long idAbonnees) {
+		System.out.println("Delete Customer with ID = " + idAbonnees + "...");
+
+		abrp.deleteById(idAbonnees);
+
+		return new ResponseEntity<>("L'abonnées a été supprimée", HttpStatus.OK);
+	}
+	
+	//details 
+			@GetMapping(value = "/details/{idAbonnees}")
+			public Optional<Abonnees> findById(@PathVariable Long idAbonnees) {
+
+				Optional<Abonnees> bene =abrp.findById(idAbonnees);
+				return bene;
+			}
 
 }

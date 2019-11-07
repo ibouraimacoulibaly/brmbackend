@@ -8,47 +8,38 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="devise")
+@Table(name="devises")
 public class Devise {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
      private long idDevise;
 	
-	@Column(name="code")
-    private int code;
+	@Column(unique = true)
+    private String codeDevise;
 	
 	@Column(name="symbole")
     private String symbole;
 	
-	@Column(name="devise")
-    private String devise;
+	@Column(name="nom")
+    private String nom;
 	
-	@Column(name="achat")
-    private String achat;
-	
-	@Column(name="vente")
-    private String vente;
+
 	
     
-	@Override
-	public String toString() {
-		return "Devise [idDevise=" + idDevise + ", code=" + code + ", symbole=" + symbole + ", devise=" + devise
-				+ ", achat=" + achat + ", vente=" + vente + "]";
-	}
+
 
 	public Devise() {
 		
 	}
 
-	public Devise(long idDevise, int code, String symbole, String devise, String achat, String vente) {
+	public Devise(long idDevise, String codeDevise, String symbole, String nom) {
 		
 		this.idDevise = idDevise;
-		this.code = code;
+		this.codeDevise = codeDevise;
 		this.symbole = symbole;
-		this.devise = devise;
-		this.achat = achat;
-		this.vente = vente;
+		this.nom = nom;
+
 	}
 
 	public long getIdDevise() {
@@ -59,12 +50,12 @@ public class Devise {
 		this.idDevise = idDevise;
 	}
 
-	public int getCode() {
-		return code;
+	public String getCodeDevise() {
+		return codeDevise;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setCode(String codeDevise) {
+		this.codeDevise = codeDevise;
 	}
 
 	public String getSymbole() {
@@ -75,34 +66,15 @@ public class Devise {
 		this.symbole = symbole;
 	}
 
-	public String getDevise() {
-		return devise;
+	public String getNom() {
+		return nom;
 	}
 
-	public void setDevise(String devise) {
-		this.devise = devise;
+	public void setDevise(String nom) {
+		this.nom = nom;
 	}
 
-	public String getAchat() {
-		return achat;
-	}
 
-	public void setAchat(String achat) {
-		this.achat = achat;
-	}
-
-	public String getVente() {
-		return vente;
-	}
-
-	public void setVente(String vente) {
-		this.vente = vente;
-	}
-
-	public void save(Devise devise2) {
-		
-		
-	}
 
 	
 	

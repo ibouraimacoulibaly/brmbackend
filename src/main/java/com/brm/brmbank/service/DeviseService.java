@@ -20,9 +20,7 @@ public class DeviseService {
         return devise.findAll();
     }
      
-    public void save(Devise devise) {
-    	devise.save(devise);
-    }
+
     
     public Iterable<Devise> get(long id) {
         return devise.findAll();

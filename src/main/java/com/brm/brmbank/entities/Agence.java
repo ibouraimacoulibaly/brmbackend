@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="agence")
+@Table(name="agences")
 public class Agence {
 	
 	@Id
@@ -18,8 +18,8 @@ public class Agence {
 	@Column(name="nom")
 	private String nom;
     
-	@Column(name="code")
-	private int code;
+	@Column(unique = true)
+	private String codeAgence;
 	
 	@Column(name="adresse_postale")
 	private String adressePostale;
@@ -36,18 +36,17 @@ public class Agence {
 	
 
 	protected Agence() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 
 
-	protected Agence(long idAgence, String nom, int code, String adressePostale, Integer telephone,
+	protected Agence(long idAgence, String nom, String codeAgence, String adressePostale, Integer telephone,
 			String coordonneesGps, String horaire) {
 		super();
 		this.idAgence = idAgence;
 		this.nom = nom;
-		this.code = code;
+		this.codeAgence = codeAgence;
 		this.adressePostale = adressePostale;
 		this.telephone = telephone;
 		this.coordonneesGps = coordonneesGps;
@@ -80,14 +79,14 @@ public class Agence {
 
 
 
-	public int getCode() {
-		return code;
+	public String getCodeAgence() {
+		return codeAgence;
 	}
 
 
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setCodeAgence(String codeAgence) {
+		this.codeAgence = codeAgence;
 	}
 
 

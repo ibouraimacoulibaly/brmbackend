@@ -6,74 +6,70 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
-@Table(name="remise")
+@Table(name="remises")
 public class Remise {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
      private long idRemise;
 	
-	@Column(name="compte")
-	private String compte;
+	@Column(name="numero_compte")
+	private String numeroCompte;
 	
-	@Column(name="emetteur")
-	private String emetteur;
+	@Column(name="date")
+	private Date nombreDeCheque;
 	
-	@Column(name="banque")
-	private String banque;
+	@Column(name="montant_total")
+	private float montantTotal;
 	
 	@Column(name="numero_de_cheque")
 	private int numeroDeCheque;
 	
-	@Column(name="montant")
-	private float montant;
+
 
 	protected Remise() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	protected Remise(long idRemise, String compte, String emetteur, String banque, int numeroDeCheque, float montant) {
-		super();
-		this.idRemise = idRemise;
-		this.compte = compte;
-		this.emetteur = emetteur;
-		this.banque = banque;
-		this.numeroDeCheque = numeroDeCheque;
-		this.montant = montant;
 	}
 
 	public long getIdRemise() {
 		return idRemise;
 	}
 
+	public Remise(String numeroCompte, Date nombreDeCheque, float montantTotal, int numeroDeCheque) {
+		this.numeroCompte = numeroCompte;
+		this.nombreDeCheque = nombreDeCheque;
+		this.montantTotal = montantTotal;
+		this.numeroDeCheque = numeroDeCheque;
+	}
+
 	public void setIdRemise(long idRemise) {
 		this.idRemise = idRemise;
 	}
 
-	public String getCompte() {
-		return compte;
+	public String getNumeroCompte() {
+		return numeroCompte;
 	}
 
-	public void setCompte(String compte) {
-		this.compte = compte;
+	public void setNumeroCompte(String numeroCompte) {
+		this.numeroCompte = numeroCompte;
 	}
 
-	public String getEmetteur() {
-		return emetteur;
+	public Date getNombreDeCheque() {
+		return nombreDeCheque;
 	}
 
-	public void setEmetteur(String emetteur) {
-		this.emetteur = emetteur;
+	public void setNombreDeCheque(Date nombreDeCheque) {
+		this.nombreDeCheque = nombreDeCheque;
 	}
 
-	public String getBanque() {
-		return banque;
+	public float getMontantTotal() {
+		return montantTotal;
 	}
 
-	public void setBanque(String banque) {
-		this.banque = banque;
+	public void setMontantTotal(float montantTotal) {
+		this.montantTotal = montantTotal;
 	}
 
 	public int getNumeroDeCheque() {
@@ -83,21 +79,4 @@ public class Remise {
 	public void setNumeroDeCheque(int numeroDeCheque) {
 		this.numeroDeCheque = numeroDeCheque;
 	}
-
-	public float getMontant() {
-		return montant;
-	}
-
-	public void setMontant(float montant) {
-		this.montant = montant;
-	}
-
-	public void save(Remise remise) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
-
 }

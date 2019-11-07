@@ -1,15 +1,17 @@
 package com.brm.brmbank.controller;
 
 import java.util.List;
+import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.brm.brmbank.entities.Liste;
 import com.brm.brmbank.repository.ListeRepository;
+
 
 @RestController
 @RequestMapping("liste")
@@ -22,13 +24,25 @@ public class ListeController {
 		return liste.findAll();
 		
 	}
-	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveListe(@ModelAttribute("liste") Liste liste) {
-	    liste.save(liste);
-	     
-	    return "redirect:/";
+
+	@PostMapping("save")
+	public ResponseEntity<Liste> saveUtilisateur(@RequestBody   Liste list) {
+		Liste user = liste.save(list);
+		return ResponseEntity.ok().body(user);
 	}
 
- 
+	
+	
+
+
+
+	
+	
+	    //details 
+		@GetMapping(value = "/details/{idListe}")
+		public Optional<Liste> findById(@PathVariable Long idListe) {
+
+			Optional<Liste> gabs = liste.findById(idListe);
+			return gabs;
+		}
 }

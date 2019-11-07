@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class Utilisateur {
 	
 	@Id
@@ -34,7 +34,11 @@ public class Utilisateur {
 	@Column(unique = true)
     private String email;
 	
+	@Column(name="prenom")
+    private String prenom;
 	
+	@Column(name="matricule")
+    private String matricule;
 
 	@Column(name="departement")
     private String departement;
@@ -44,13 +48,16 @@ public class Utilisateur {
 	
 	@Column(name="profil")
     private String profil;
+
+	@Column(name = "status")
+	private  String status;
 	
-	public Utilisateur() {
+	public Utilisateur(String string) {
 		
 	}
 
 	protected Utilisateur(long idUtilisateur, String nom, String username, String fonction, String email,
-			String departement, String telephone, String profil) {
+			String departement, String telephone, String profil, String prenom, String matricule, String status, String password) {
 		
 		this.idUtilisateur = idUtilisateur;
 		this.nom = nom;
@@ -60,6 +67,11 @@ public class Utilisateur {
 		this.departement = departement;
 		this.telephone = telephone;
 		this.profil = profil;
+		this.prenom = prenom;
+		this.matricule = matricule;
+		this.status = status;
+		this.password = password;
+		
 	}
 
 	public long getIdUtilisateur() {
@@ -134,7 +146,28 @@ public class Utilisateur {
 		this.password = password;
 	}
 
-	
-	
 
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 }

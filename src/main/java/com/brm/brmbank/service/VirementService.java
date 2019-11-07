@@ -19,9 +19,7 @@ public class VirementService {
         return virement.findAll();
     }
      
-    public void save(Virement virement) {
-    	virement.save(virement);
-    }
+
     
     public List<Virement> get(long id) {
         return virement.findAll();

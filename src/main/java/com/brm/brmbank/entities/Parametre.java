@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="parametre")
+@Table(name="parametres")
 public class Parametre {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,17 +23,18 @@ public class Parametre {
 	@Column(name="description")
 	private String description;
 
+	@Column(name = "affiche")
+	private boolean affiche;
+
 	protected Parametre() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	protected Parametre(long idParametre, String cle, String valeur, String description) {
-		super();
-		this.idParametre = idParametre;
+	public Parametre(String cle, String valeur, String description, boolean affiche) {
 		this.cle = cle;
 		this.valeur = valeur;
 		this.description = description;
+		this.affiche = affiche;
 	}
 
 	public long getIdParametre() {
@@ -68,9 +69,11 @@ public class Parametre {
 		this.description = description;
 	}
 
-	public void save(Parametre parametrRepository) {
-		
+	public boolean isAffiche() {
+		return affiche;
 	}
-	
 
+	public void setAffiche(boolean affiche) {
+		this.affiche = affiche;
+	}
 }

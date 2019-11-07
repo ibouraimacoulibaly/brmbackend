@@ -15,8 +15,8 @@ public class Gabs {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private long idGabs;
 	
-	@Column(name="nom")
-	private String nom;
+	@Column(name="nom_gabs")
+	private String nomGabs;
 	
 	@Column(name="adresse_postale")
 	private String adressePostale;
@@ -24,17 +24,22 @@ public class Gabs {
 	@Column(name="coordonnees_gps")
 	private String coordonneesGps;
 
+     @Column(name = "etat")
+	 private String etat;
+
+     @Column(unique = true)
+	 private String code;
+
 	protected Gabs() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	protected Gabs(long idGabs, String nom, String adressePostale, String coordonneesGps) {
-		super();
-		this.idGabs = idGabs;
-		this.nom = nom;
+	public Gabs(String nomGabs, String adressePostale, String coordonneesGps, String etat, String code) {
+		this.nomGabs = nomGabs;
 		this.adressePostale = adressePostale;
 		this.coordonneesGps = coordonneesGps;
+		this.etat = etat;
+		this.code = code;
 	}
 
 	public long getIdGabs() {
@@ -45,12 +50,12 @@ public class Gabs {
 		this.idGabs = idGabs;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getNomGabs() {
+		return nomGabs;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomGabs(String nomGabs) {
+		this.nomGabs = nomGabs;
 	}
 
 	public String getAdressePostale() {
@@ -69,12 +74,19 @@ public class Gabs {
 		this.coordonneesGps = coordonneesGps;
 	}
 
-	public void save(Gabs gabsrepository) {
-		// TODO Auto-generated method stub
-		
+	public String getEtat() {
+		return etat;
 	}
-	
-	
-	
 
+	public void setEtat(String etat) {
+		this.etat = etat;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 }

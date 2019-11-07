@@ -1,57 +1,87 @@
 package com.brm.brmbank.entities;
 
-import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.sql.Date;
+import java.time.format.DateTimeFormatterBuilder;
+
+import javax.persistence.*;
 
 @Entity
-@Table(name = "Virement")
+@Table(name = "Virements")
 public class Virement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long idVirement;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "id_beneficiaire", nullable = false)
+	@JsonIgnore
+	private Beneficiaire beneficiaire;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "compte_a_crediter", nullable = false)
+	@JsonIgnore
+	private Compte compte;
+
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "code_devise", nullable = false)
+	@JsonIgnore
+	private Devise devise;
+
+	@Column(name = "frequence_virements")
+	private String frequenceVirements;
 	
-	@Column(name="agence")
-	private String agence;
+	@Column(name="compte_a_debiter")
+	private String compteDebiter;
 	
-	@Column(name="titulaireDuCompte")
-	private String titulaireDuCompte;
+	@Column(name="date_heure")
+	private Date dateHeure;
 	
-	@Column(name="solde")
-	private float solde;
+	@Column(name="motif")
+	private float motif;
 	
-	@Column(name="date")
-	private Date date;
+	@Column(name="date_execution")
+	private Date dateExecution;
 	
-	@Column(name="devise")
-	private String devise;
+	@Column(name="date_expiration")
+	private String dateExpiration;
 	
-	@Column(name="montant")
-	private float montant;
+	@Column(name="description")
+	private float description;
 	
-	@Column(name="type")
-	private String type;
+	@Column(name="type_virement")
+	private String typeVirement;
+
+	@Column(name = "etat")
+	private String etat;
+
+	@Column(name = "montant")
+	private  float montant;
+
+	@Column(name = "periodicite")
+	private String periodicite;
 
 	protected Virement() {
 		
 	}
 
-	protected Virement(long idVirement, String agence, String titulaireDuCompte, float solde, Date date, String devise,
-			float montant, String type) {
-		
-		this.idVirement = idVirement;
-		this.agence = agence;
-		this.titulaireDuCompte = titulaireDuCompte;
-		this.solde = solde;
-		this.date = date;
+	public Virement(Beneficiaire beneficiaire, Compte compte, Devise devise, String frequenceVirements, String compteDebiter, Date dateHeure, float motif, Date dateExecution,
+					String dateExpiration, float description, String typeVirement, String etat, float montant, String periodicite) {
+		this.beneficiaire = beneficiaire;
+		this.compte = compte;
 		this.devise = devise;
+		this.frequenceVirements = frequenceVirements;
+		this.compteDebiter = compteDebiter;
+		this.dateHeure = dateHeure;
+		this.motif = motif;
+		this.dateExecution = dateExecution;
+		this.dateExpiration = dateExpiration;
+		this.description = description;
+		this.typeVirement = typeVirement;
+		this.etat = etat;
 		this.montant = montant;
-		this.type = type;
+		this.periodicite = periodicite;
 	}
 
 	public long getIdVirement() {
@@ -62,44 +92,100 @@ public class Virement {
 		this.idVirement = idVirement;
 	}
 
-	public String getAgence() {
-		return agence;
+	public Beneficiaire getBeneficiaire() {
+		return beneficiaire;
 	}
 
-	public void setAgence(String agence) {
-		this.agence = agence;
+	public void setBeneficiaire(Beneficiaire beneficiaire) {
+		this.beneficiaire = beneficiaire;
 	}
 
-	public String getTitulaireDuCompte() {
-		return titulaireDuCompte;
+	public Compte getCompte() {
+		return compte;
 	}
 
-	public void setTitulaireDuCompte(String titulaireDuCompte) {
-		this.titulaireDuCompte = titulaireDuCompte;
+	public void setCompte(Compte compte) {
+		this.compte = compte;
 	}
 
-	public float getSolde() {
-		return solde;
-	}
-
-	public void setSolde(float solde) {
-		this.solde = solde;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public String getDevise() {
+	public Devise getDevise() {
 		return devise;
 	}
 
-	public void setDevise(String devise) {
+	public void setDevise(Devise devise) {
 		this.devise = devise;
+	}
+
+	public String getFrequenceVirements() {
+		return frequenceVirements;
+	}
+
+	public void setFrequenceVirements(String frequenceVirements) {
+		this.frequenceVirements = frequenceVirements;
+	}
+
+	public String getCompteDebiter() {
+		return compteDebiter;
+	}
+
+	public void setCompteDebiter(String compteDebiter) {
+		this.compteDebiter = compteDebiter;
+	}
+
+	public Date getDateHeure() {
+		return dateHeure;
+	}
+
+	public void setDateHeure(Date dateHeure) {
+		this.dateHeure = dateHeure;
+	}
+
+	public float getMotif() {
+		return motif;
+	}
+
+	public void setMotif(float motif) {
+		this.motif = motif;
+	}
+
+	public Date getDateExecution() {
+		return dateExecution;
+	}
+
+	public void setDateExecution(Date dateExecution) {
+		this.dateExecution = dateExecution;
+	}
+
+	public String getDateExpiration() {
+		return dateExpiration;
+	}
+
+	public void setDateExpiration(String dateExpiration) {
+		this.dateExpiration = dateExpiration;
+	}
+
+	public float getDescription() {
+		return description;
+	}
+
+	public void setDescription(float description) {
+		this.description = description;
+	}
+
+	public String getTypeVirement() {
+		return typeVirement;
+	}
+
+	public void setTypeVirement(String typeVirement) {
+		this.typeVirement = typeVirement;
+	}
+
+	public String getEtat() {
+		return etat;
+	}
+
+	public void setEtat(String etat) {
+		this.etat = etat;
 	}
 
 	public float getMontant() {
@@ -110,19 +196,11 @@ public class Virement {
 		this.montant = montant;
 	}
 
-	public String getType() {
-		return type;
+	public String getPeriodicite() {
+		return periodicite;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setPeriodicite(String periodicite) {
+		this.periodicite = periodicite;
 	}
-
-	public void save(Virement virement) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-
 }

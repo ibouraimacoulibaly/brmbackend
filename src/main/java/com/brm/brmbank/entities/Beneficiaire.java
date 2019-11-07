@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="beneficiaire")
+@Table(name="beneficiaires")
 public class Beneficiaire {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
      private long idBeneficiaire;
 	
-	@Column(name="nom_prenom")
-	private String nomPrenom;
+	@Column(name="nomComplet")
+	private String nomComplet;
    
 	@Column(name="numero_compte")
 	private int numeroCompte;
@@ -24,14 +24,13 @@ public class Beneficiaire {
 	private String iban;
 
 	protected Beneficiaire() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	protected Beneficiaire(long idBeneficiaire, String nomPrenom, int numeroCompte, String iban) {
+	protected Beneficiaire(long idBeneficiaire, String nomComplet, int numeroCompte, String iban) {
 		super();
 		this.idBeneficiaire = idBeneficiaire;
-		this.nomPrenom = nomPrenom;
+		this.nomComplet = nomComplet;
 		this.numeroCompte = numeroCompte;
 		this.iban = iban;
 	}
@@ -44,12 +43,12 @@ public class Beneficiaire {
 		this.idBeneficiaire = idBeneficiaire;
 	}
 
-	public String getNomPrenom() {
-		return nomPrenom;
+	public String getNomComplet() {
+		return nomComplet;
 	}
 
-	public void setNomPrenom(String nomPrenom) {
-		this.nomPrenom = nomPrenom;
+	public void setNomComplet(String nomComplet) {
+		this.nomComplet = nomComplet;
 	}
 
 	public int getNumeroCompte() {
@@ -69,7 +68,7 @@ public class Beneficiaire {
 	}
 
 	public void save(Beneficiaire beneficiaire) {
-		// TODO Auto-generated method stub
+
 		
 	}
 	

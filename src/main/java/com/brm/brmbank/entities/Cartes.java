@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "cartes")
 public class Cartes {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idCartes;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -21,7 +21,7 @@ public class Cartes {
     @JsonIgnore
     private Compte compte;
 
-    @Column(name = "numero_carte")
+    @Column(unique = true, nullable = false)
     private int numeroCarte;
 
     @Column (name = "debit")

@@ -19,13 +19,13 @@ public class Remise {
 	private String numeroCompte;
 	
 	@Column(name="date")
-	private Date nombreDeCheque;
+	private Date date;
 	
 	@Column(name="montant_total")
 	private float montantTotal;
 	
-	@Column(name="numero_de_cheque")
-	private int numeroDeCheque;
+	@Column(name="nombre_de_cheque")
+	private int nombreDeCheque;
 	
 
 
@@ -37,11 +37,11 @@ public class Remise {
 		return idRemise;
 	}
 
-	public Remise(String numeroCompte, Date nombreDeCheque, float montantTotal, int numeroDeCheque) {
+	public Remise(String numeroCompte, int nombreDeCheque, float montantTotal, Date date) {
 		this.numeroCompte = numeroCompte;
 		this.nombreDeCheque = nombreDeCheque;
 		this.montantTotal = montantTotal;
-		this.numeroDeCheque = numeroDeCheque;
+		this.date = date;
 	}
 
 	public void setIdRemise(long idRemise) {
@@ -56,14 +56,6 @@ public class Remise {
 		this.numeroCompte = numeroCompte;
 	}
 
-	public Date getNombreDeCheque() {
-		return nombreDeCheque;
-	}
-
-	public void setNombreDeCheque(Date nombreDeCheque) {
-		this.nombreDeCheque = nombreDeCheque;
-	}
-
 	public float getMontantTotal() {
 		return montantTotal;
 	}
@@ -72,11 +64,19 @@ public class Remise {
 		this.montantTotal = montantTotal;
 	}
 
-	public int getNumeroDeCheque() {
-		return numeroDeCheque;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setNumeroDeCheque(int numeroDeCheque) {
-		this.numeroDeCheque = numeroDeCheque;
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public int getNombreDeCheque() {
+		return nombreDeCheque;
+	}
+
+	public void setNombreDeCheque(int nombreDeCheque) {
+		this.nombreDeCheque = nombreDeCheque;
 	}
 }

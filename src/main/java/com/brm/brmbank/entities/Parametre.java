@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name="parametres")
 public class Parametre {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
      private long idParametre;
 	
 	@Column(name="cle")

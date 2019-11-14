@@ -1,31 +1,15 @@
 package com.brm.brmbank.controller;
 
 
-import java.util.List;
-import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.brm.brmbank.entities.Utilisateur;
+import com.brm.brmbank.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.brm.brmbank.entities.Utilisateur;
-import com.brm.brmbank.repository.UtilisateurRepository;
-
-
-
-
-
-
-
+import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin
@@ -35,42 +19,34 @@ public class UtilisateurController {
 
 	@Autowired
 	private UtilisateurRepository utilisateurRepository;
-	
-	public static final Logger logger = LoggerFactory.getLogger(UtilisateurController.class);
-	
-	@GetMapping
+
+
+
+	//public static final Logger logger = (Logger) LoggerFactory.getLogger(UtilisateurController.class);
+
+	@RequestMapping(value ="",  method = RequestMethod.GET)
 	public List<Utilisateur> getAll() {
 		return utilisateurRepository.findAll();
-		
+
 	}
+
+
 	
 	@PostMapping("save")
 	public ResponseEntity<Utilisateur> saveUtilisateur(@RequestBody   Utilisateur utilisateur) {
+		
 		Utilisateur user = utilisateurRepository.save(utilisateur);
 	    return ResponseEntity.ok().body(user);
 	}
 	
-	//LOGIN
-	/*@GetMapping(produces = "application/json")
+	/*//LOGIN
 	 @RequestMapping("/login")
-	public Principal user(Principal principal) {
+	public Principal users(Principal principal) {
 		logger.info("user logged "+principal);
 		return principal;
 	}*/
 	
-	
-	
-	
-	@GetMapping(produces = "application/json")
-	@RequestMapping({ "/login" })
-	public Utilisateur login() {
-		return new Utilisateur("User successfully authenticated");
-	}
-	
-	
-	
-	
-	
+
 	//supprimer un  utilisateur
 	@RequestMapping("/delete/{idUtilisateur}")
 	public ResponseEntity<String> deleteUser(@PathVariable("idUtilisateur") long idUtilisateur) {

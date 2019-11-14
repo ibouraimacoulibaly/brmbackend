@@ -8,10 +8,10 @@ import java.util.Date;
 public class DepotsATermes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idDepotsATerme;
 
-    @Column(name = "numero_compte")
+    @Column(name = "numero_compte", nullable = false)
     private int numeroCompte;
 
     @Column(name = "type_description")

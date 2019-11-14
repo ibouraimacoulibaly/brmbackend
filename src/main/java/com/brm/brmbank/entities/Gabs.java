@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class Gabs {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idGabs;
 	
 	@Column(name="nom_gabs")
@@ -27,7 +27,7 @@ public class Gabs {
      @Column(name = "etat")
 	 private String etat;
 
-     @Column(unique = true)
+     @Column(unique = true, nullable = false)
 	 private String code;
 
 	protected Gabs() {

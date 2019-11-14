@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "chargement_cours_devises")
 public class ChargementCoursDevise {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idChargementCoursDevise;
 
     @Column(name = "date_chargement_cours_devises")

@@ -13,7 +13,7 @@ import java.util.Date;
 public class Abonnees {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
      private long idAbonnes;
 	
 	@Column(name="nom")
@@ -22,22 +22,22 @@ public class Abonnees {
 	@Column(name = "prenom")
 	private String prenom;
 
-	@Column(name = "username")
+	@Column(unique = true, nullable = false)
 	private String username;
 	
-	@Column(name="email")
+	@Column(unique = true, nullable = false)
 	private String email;
 
 	@Column(name="adresse")
 	private String adresse;
 
 	@Column(name="telephone")
-	private int telephone;
+	private Integer telephone;
 
 	@Column(name = "password")
 	private String password;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String idClient;
 
 	@Column(name = "ville")
@@ -52,14 +52,13 @@ public class Abonnees {
 	@Column(name = "date_derniere_connexion")
 	private Date dateDerniereConnexion;
 
-	@Column(name = "type")
-	private String type;
+	
 
 	protected Abonnees() {
 
 	}
 
-	public Abonnees(String nom, String prenom, String username, String email, String adresse, int telephone, String password, String idClient, String ville, String region, String pays, Date dateDerniereConnexion, String type) {
+	public Abonnees(String nom, String prenom, String username, String email, String adresse, Integer telephone, String password, String idClient, String ville, String region, String pays, Date dateDerniereConnexion) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.username = username;
@@ -72,7 +71,7 @@ public class Abonnees {
 		this.region = region;
 		this.pays = pays;
 		this.dateDerniereConnexion = dateDerniereConnexion;
-		this.type = type;
+		
 	}
 
 	public long getIdAbonnes() {
@@ -123,11 +122,11 @@ public class Abonnees {
 		this.adresse = adresse;
 	}
 
-	public int getTelephone() {
+	public Integer getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(int telephone) {
+	public void setTelephone(Integer telephone) {
 		this.telephone = telephone;
 	}
 
@@ -179,11 +178,5 @@ public class Abonnees {
 		this.dateDerniereConnexion = dateDerniereConnexion;
 	}
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
 }

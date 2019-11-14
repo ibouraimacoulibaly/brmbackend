@@ -12,13 +12,13 @@ import javax.persistence.Table;
 public class Agence {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
      private long idAgence;
 	
 	@Column(name="nom")
 	private String nom;
     
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String codeAgence;
 	
 	@Column(name="adresse_postale")

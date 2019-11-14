@@ -1,27 +1,26 @@
 package com.brm.brmbank.entities;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.context.annotation.Scope;
+
+import javax.persistence.*;
+
 
 
 
 @Entity
+@Scope("session")
 @Table(name="users")
-public class Utilisateur {
+public class Utilisateur  {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
      private long idUtilisateur;
 	
 	@Column(name="nom")
     private String nom;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
     private String username;
 	
 	@Column(name="password")
@@ -31,13 +30,13 @@ public class Utilisateur {
     private String fonction;
 	
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
     private String email;
 	
 	@Column(name="prenom")
     private String prenom;
 	
-	@Column(name="matricule")
+	@Column(unique = true, nullable = false)
     private String matricule;
 
 	@Column(name="departement")
@@ -52,7 +51,7 @@ public class Utilisateur {
 	@Column(name = "status")
 	private  String status;
 	
-	public Utilisateur(String string) {
+	public Utilisateur() {
 		
 	}
 
@@ -170,4 +169,16 @@ public class Utilisateur {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+
+	@Override
+	public String toString() {
+		return "Utilisateur [idUtilisateur=" + idUtilisateur + ", nom=" + nom + ", username=" + username + ", password="
+				+ password + ", fonction=" + fonction + ", email=" + email + ", prenom=" + prenom + ", matricule="
+				+ matricule + ", departement=" + departement + ", telephone=" + telephone + ", profil=" + profil
+				+ ", status=" + status + "]";
+	}
+
+	
+
 }

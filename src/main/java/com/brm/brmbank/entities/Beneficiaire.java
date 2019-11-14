@@ -11,13 +11,13 @@ import javax.persistence.Table;
 @Table(name="beneficiaires")
 public class Beneficiaire {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
      private long idBeneficiaire;
 	
 	@Column(name="nomComplet")
 	private String nomComplet;
    
-	@Column(name="numero_compte")
+	@Column(unique = true, nullable = false)
 	private int numeroCompte;
 	
 	@Column(name="iban")

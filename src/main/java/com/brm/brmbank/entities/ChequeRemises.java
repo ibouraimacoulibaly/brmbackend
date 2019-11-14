@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "cheque_remise")
 public class ChequeRemises {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idChequeRemise;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -18,7 +18,7 @@ public class ChequeRemises {
 
     @Column(name = "emmetteur")
     private String emmetteur;
-    @Column(name = "numero_cheque")
+    @Column(unique = true, nullable = false)
     private int numeroCheque;
 
     @Column(name = "nom_bank")

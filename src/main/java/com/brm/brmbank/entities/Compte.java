@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name="comptes")
 public class Compte {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idCompte;
 	@ManyToOne(
 			fetch = FetchType.LAZY,
@@ -33,7 +33,7 @@ public class Compte {
 	@JsonIgnore
 	private Agence agence;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private int numeroCompte;
 	
 	@Column(name="solde")

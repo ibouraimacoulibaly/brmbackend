@@ -6,10 +6,10 @@ import javax.persistence.*;
 @Table(name = "type_chequier")
 public class TypeChequier {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idTypeChequier;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private  String codeTypeChequier;
 
     @Column(name = "libelle_type_chequier")

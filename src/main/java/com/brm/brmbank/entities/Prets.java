@@ -5,13 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
-import java.util.Timer;
 
 @Entity
 @Table(name = "prets")
 public class Prets {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idPrets;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

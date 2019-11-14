@@ -7,16 +7,16 @@ import javax.persistence.*;
 public class AgentsMessages {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idAgentsMessages;
 
     @Column(name = "nom")
     private String nom;
 
-    @Column(name = "matricule")
+    @Column(unique = true, nullable = false)
     private String matricule;
 
-    @Column(name = "email")
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(name = "numero_telephone")

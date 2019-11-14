@@ -9,7 +9,7 @@ import java.util.Date;
 @Table
 public class DemandeCartes {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idDemandeCartes;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

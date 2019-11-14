@@ -1,23 +1,17 @@
 package com.brm.brmbank.controller;
 
-import java.util.Optional;
-
+import com.brm.brmbank.entities.Devise;
+import com.brm.brmbank.repository.DeviseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import com.brm.brmbank.entities.Devise;
-import com.brm.brmbank.repository.DeviseRepository;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
-
+@CrossOrigin
 @RestController
-
 @RequestMapping("devise")
 public class DeviseController {
 	
@@ -31,9 +25,13 @@ public class DeviseController {
 	public Iterable<Devise> getAll() {
 		return devise.findAll();
     }
-	
-	
-	
+
+
+	@PostMapping("save")
+	public ResponseEntity<Devise> saveDevise(@RequestBody   Devise devise1) {
+		Devise dev = devise.save(devise1);
+		return ResponseEntity.ok().body(dev);
+	}
 
 	
 	@RequestMapping("/delete/{idDevise}")

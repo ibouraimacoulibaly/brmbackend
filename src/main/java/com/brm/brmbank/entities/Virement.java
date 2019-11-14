@@ -2,16 +2,14 @@ package com.brm.brmbank.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.sql.Date;
-import java.time.format.DateTimeFormatterBuilder;
-
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "Virements")
 public class Virement {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idVirement;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -8,4 +8,5 @@ import com.brm.brmbank.entities.Abonnees;
 @Repository
 public interface AbonneesRepository extends JpaRepository<Abonnees, Long> {
 
+    public Abonnees findOneByUsername(String username);
 }

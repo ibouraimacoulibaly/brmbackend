@@ -1,19 +1,18 @@
 package com.brm.brmbank.controller;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.brm.brmbank.entities.Abonnees;
+import com.brm.brmbank.repository.AbonneesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.brm.brmbank.entities.Abonnees;
-import com.brm.brmbank.repository.AbonneesRepository;
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
-@RequestMapping("abonnees")
+@RequestMapping("abonnes")
 
 public class AbonneesController {
 	
@@ -32,22 +31,49 @@ public class AbonneesController {
 	}
 
 
-	
-	@RequestMapping("/delete/{idAbonnees}")
-	public ResponseEntity<String> deleteAbonnees(@PathVariable("idAgence") long idAbonnees) {
-		System.out.println("Delete Customer with ID = " + idAbonnees + "...");
 
-		abrp.deleteById(idAbonnees);
+	@PostMapping("delete")
+	public ResponseEntity<Abonnees> delete(@RequestBody Abonnees abonnees) {
+		abrp.delete(abonnees);
+		return ResponseEntity.ok().body(abonnees);
 
-		return new ResponseEntity<>("L'abonnées a été supprimée", HttpStatus.OK);
 	}
-	
-	//details 
-			@GetMapping(value = "/details/{idAbonnees}")
-			public Optional<Abonnees> findById(@PathVariable Long idAbonnees) {
+	@CrossOrigin("*")
+	@GetMapping("details/{username}")
+	public Optional<Abonnees> findOneByUsername(@PathVariable String username) {
+		Optional<Abonnees> utilisateur = Optional.ofNullable(abrp.findOneByUsername(username));
+		return utilisateur;
 
-				Optional<Abonnees> bene =abrp.findById(idAbonnees);
-				return bene;
-			}
+	}
 
+    @PutMapping("modifier/{username}")
+    public ResponseEntity<Abonnees> updateUtilisateur(@PathVariable String username, @RequestBody Abonnees abonnees) {
+        System.out.println("Update Customer with ID = " + abonnees + "...");
+
+        Optional<Abonnees> utilisateurData = Optional.ofNullable(abrp.findOneByUsername(username));
+
+        if (utilisateurData.isPresent()) {
+            Abonnees _abonnees = utilisateurData.get();
+            _abonnees.setNom(abonnees.getNom());
+            _abonnees.setIdAbonnes(abonnees.getIdAbonnes());
+            _abonnees.setUsername(abonnees.getUsername());
+            _abonnees.setPassword(abonnees.getPassword());
+            _abonnees.setPrenom(abonnees.getPrenom());
+            _abonnees.setEmail(abonnees.getEmail());
+            _abonnees.setTelephone(abonnees.getTelephone());
+            _abonnees.setIdClient(abonnees.getIdClient());
+            _abonnees.setDateDerniereConnexion(abonnees.getDateDerniereConnexion());
+            _abonnees.setAdresse(abonnees.getAdresse());
+            _abonnees.setPays(abonnees.getPays());
+            _abonnees.setVille(abonnees.getVille());
+            _abonnees.setRegion(abonnees.getRegion());
+
+
+
+
+            return new ResponseEntity<>(abrp.save(_abonnees), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

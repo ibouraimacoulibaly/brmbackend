@@ -3,7 +3,6 @@ package com.brm.brmbank.controller;
 import com.brm.brmbank.entities.Devise;
 import com.brm.brmbank.repository.DeviseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +32,13 @@ public class DeviseController {
 		return ResponseEntity.ok().body(dev);
 	}
 
-	
-	@RequestMapping("/delete/{idDevise}")
-	public ResponseEntity<String> deleteDevise(@PathVariable("idDevise") long idDevise) {
-		System.out.println("Delete Customer with ID = " + idDevise + "...");
 
-		devise.deleteById(idDevise);
 
-		return new ResponseEntity<>("le compte a été supprimée", HttpStatus.OK);
+	@PostMapping("delete")
+	public ResponseEntity<Devise> delete(@RequestBody Devise devis) {
+		devise.delete(devis);
+		return ResponseEntity.ok().body(devis);
+
 	}
 	
 	//details 

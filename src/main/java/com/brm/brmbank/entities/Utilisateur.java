@@ -1,18 +1,22 @@
 package com.brm.brmbank.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-
-
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 @Entity
 @Scope("session")
 @Table(name="users")
-public class Utilisateur  {
-	
+public class Utilisateur  implements UserDetails {
+	public static enum Profil{ Admin }
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
      private long idUtilisateur;
@@ -50,9 +54,9 @@ public class Utilisateur  {
 
 	@Column(name = "status")
 	private  String status;
-	
+
 	public Utilisateur() {
-		
+
 	}
 
 	protected Utilisateur(long idUtilisateur, String nom, String username, String fonction, String email,
@@ -91,6 +95,29 @@ public class Utilisateur  {
 
 	public String getUsername() {
 		return username;
+	}
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@JsonIgnore
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 	public void setUsername(String username) {
@@ -135,6 +162,13 @@ public class Utilisateur  {
 
 	public void setProfil(String profil) {
 		this.profil = profil;
+	}
+	@JsonIgnore
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Collection<GrantedAuthority> authorities = new ArrayList<>();
+		authorities.add(new SimpleGrantedAuthority(profil));
+		return authorities;
 	}
 
 	public String getPassword() {

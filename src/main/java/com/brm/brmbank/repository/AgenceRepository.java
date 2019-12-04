@@ -7,4 +7,5 @@ import com.brm.brmbank.entities.Agence;
 @Repository
 public interface AgenceRepository extends JpaRepository<Agence, Long> {
 
+    public Agence findByCodeAgence(String codeAgence);
 }

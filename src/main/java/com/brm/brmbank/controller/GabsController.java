@@ -1,21 +1,15 @@
 package com.brm.brmbank.controller;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.brm.brmbank.entities.Gabs;
+import com.brm.brmbank.repository.GabsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.brm.brmbank.entities.Gabs;
-import com.brm.brmbank.repository.GabsRepository;
-
+import java.util.List;
+import java.util.Optional;
+@CrossOrigin
 @RestController
 @RequestMapping("gabs")
 public class GabsController {
@@ -28,25 +22,53 @@ public class GabsController {
 		return gabsrepository.findAll();
 		
 	}
-	
 
-	
-	@RequestMapping("/delete/{idGabs}")
-	public ResponseEntity<String> deleteGabs(@PathVariable("idGabs") long idGabs) {
-		System.out.println("Delete Customer with ID = " + idGabs + "...");
 
-		gabsrepository.deleteById(idGabs);
 
-		return new ResponseEntity<>("le gabs a été supprimée", HttpStatus.OK);
+	@PostMapping("save")
+	public ResponseEntity<Gabs> saveAbonnees(@RequestBody   Gabs gabs) {
+		Gabs user = gabsrepository.save(gabs);
+		return ResponseEntity.ok().body(user);
 	}
-	
-	
-	//details 
-	@GetMapping(value = "/details/{idGabs}")
-	public Optional<Gabs> findById(@PathVariable Long idGabs) {
 
-		Optional<Gabs> gabs = gabsrepository.findById(idGabs);
-		return gabs;
+
+
+	@PostMapping("delete")
+	public ResponseEntity<Gabs> delete(@RequestBody Gabs gabs) {
+		gabsrepository.delete(gabs);
+		return ResponseEntity.ok().body(gabs);
+
+	}
+	@CrossOrigin("*")
+	@GetMapping("details/{code}")
+	public Optional<Gabs> findOneByCode(@PathVariable String code) {
+		Optional<Gabs> utilisateur = Optional.ofNullable(gabsrepository.findOneByCode(code));
+		return utilisateur;
+
+	}
+
+	@PutMapping("modifier/{code}")
+	public ResponseEntity<Gabs> updateUtilisateur(@PathVariable String code, @RequestBody Gabs gabs) {
+		System.out.println("Update Customer with ID = " + gabs + "...");
+
+		Optional<Gabs> utilisateurData = Optional.ofNullable(gabsrepository.findOneByCode(code));
+
+		if (utilisateurData.isPresent()) {
+			Gabs _gabs = utilisateurData.get();
+			_gabs.setCode(gabs.getCode());
+			_gabs.setIdGabs(gabs.getIdGabs());
+			_gabs.setNomGabs(gabs.getNomGabs());
+			_gabs.setCoordonneesGps(gabs.getCoordonneesGps());
+			_gabs.setEtat(gabs.getEtat());
+			_gabs.setAdressePostale(gabs.getAdressePostale());
+
+
+
+
+			return new ResponseEntity<>(gabsrepository.save(_gabs), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

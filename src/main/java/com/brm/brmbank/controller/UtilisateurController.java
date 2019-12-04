@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,7 +36,7 @@ public class UtilisateurController {
 
     @PostMapping("save")
     public ResponseEntity<Utilisateur> saveUtilisateur(@RequestBody Utilisateur utilisateur) {
-
+      utilisateur.setPassword(encoder().encode(utilisateur.getPassword()));
         Utilisateur user = utilisateurRepository.save(utilisateur);
         return ResponseEntity.ok().body(user);
     }
@@ -47,15 +49,7 @@ public class UtilisateurController {
     }
 
 
-    //supprimer un  utilisateur
 
-    /*@RequestMapping("/delete/{idUtilisateur}")
-    public ResponseEntity<String> deleteUser(@PathVariable("idUtilisateur") long id) {
-        //System.out.println("Delete Customer with ID = " + idUtilisateur + "...");
-        utilisateurRepository.deleteById(id);
-
-        return new ResponseEntity<>("L'utilisateur a été supprimé!", HttpStatus.OK);
-    }*/
     @PostMapping("delete")
     public ResponseEntity<Utilisateur> delete(@RequestBody Utilisateur user) {
         utilisateurRepository.delete(user);
@@ -70,13 +64,6 @@ public class UtilisateurController {
 
     }
 
-    /*//details
-    @GetMapping(value = "/details/{idUtilisateur}")
-    public Optional<Utilisateur> findById(@PathVariable Long idUtilisateur) {
-
-        Optional<Utilisateur> utilisateur = utilisateurRepository.findById(idUtilisateur);
-        return utilisateur;
-    }*/
 
 
     @PutMapping("modifier/{username}")
@@ -104,5 +91,8 @@ public class UtilisateurController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    public PasswordEncoder encoder(){
+        return new  BCryptPasswordEncoder();
     }
 }

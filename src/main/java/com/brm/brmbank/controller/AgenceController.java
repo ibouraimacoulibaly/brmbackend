@@ -1,58 +1,70 @@
 package com.brm.brmbank.controller;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.brm.brmbank.entities.Agence;
+import com.brm.brmbank.repository.AgenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-
-import com.brm.brmbank.entities.Agence;
-import com.brm.brmbank.repository.AgenceRepository;
-
+import java.util.List;
+import java.util.Optional;
+@CrossOrigin
 @RestController
 @RequestMapping("agence")
 public class AgenceController {
-	
-	@Autowired
-	private AgenceRepository agencerepository;
-	
-	@RequestMapping(value ="",  method = RequestMethod.GET)
-	public List<Agence> getAll() {
-		return agencerepository.findAll();
-		
-	}
-	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String saveAgence(@ModelAttribute("agencerepository") Agence agencerepository) {
-		agencerepository.save(agencerepository);
-	     
-	    return "redirect:/";
-	}
 
-	
-	
-	@RequestMapping("/delete/{idAgence}")
-	public ResponseEntity<String> deleteAgence(@PathVariable("idAgence") long idAgence) {
-		System.out.println("Delete Customer with ID = " + idAgence + "...");
+    @Autowired
+    private AgenceRepository agencerepository;
 
-		agencerepository.deleteById(idAgence);
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<Agence> getAll() {
+        return agencerepository.findAll();
 
-		return new ResponseEntity<>("L'agence a été supprimé", HttpStatus.OK);
-	}
-	
-	//details 
-	@GetMapping(value = "/details/{idAgence}")
-	public Optional<Agence> findById(@PathVariable Long idAgence) {
+    }
 
-		Optional<Agence> agence = agencerepository.findById(idAgence);
-		return agence;
-	}
+    @PostMapping("save")
+    public ResponseEntity<Agence> saveUtilisateur(@RequestBody Agence agence) {
+
+        Agence user = agencerepository.save(agence);
+        return ResponseEntity.ok().body(user);
+    }
+
+
+    @PostMapping("delete")
+    public ResponseEntity<Agence> delete(@RequestBody Agence agence) {
+        agencerepository.delete(agence);
+        return ResponseEntity.ok().body(agence);
+
+    }
+
+    @CrossOrigin("*")
+    @GetMapping("details/{codeAgence}")
+    public Optional<Agence> findByCodeAgence(@PathVariable String codeAgence) {
+        Optional<Agence> agence = Optional.ofNullable(agencerepository.findByCodeAgence(codeAgence));
+        return agence;
+
+    }
+
+    @PutMapping("modifier/{codeAgence}")
+    public ResponseEntity<Agence> updateUtilisateur(@PathVariable String codeAgence, @RequestBody Agence agence) {
+        System.out.println("Update Customer with ID = " + agence + "...");
+
+        Optional<Agence> agenceData = Optional.ofNullable(agencerepository.findByCodeAgence(codeAgence));
+
+        if (agenceData.isPresent()) {
+            Agence _agence = agenceData.get();
+            _agence.setNom(agence.getNom());
+            _agence.setIdAgence(agence.getIdAgence());
+            _agence.setAdressePostale(agence.getAdressePostale());
+            _agence.setCodeAgence(agence.getCodeAgence());
+            _agence.setHoraire(agence.getHoraire());
+            _agence.setTelephone(agence.getTelephone());
+            _agence.setCoordonneesGps(agence.getCoordonneesGps());
+
+            return new ResponseEntity<>(agencerepository.save(_agence), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

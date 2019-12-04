@@ -8,4 +8,5 @@ import com.brm.brmbank.entities.Gabs;
 @Repository
 public interface GabsRepository extends JpaRepository<Gabs, Long>{
 
+    public Gabs findOneByCode(String code);
 }

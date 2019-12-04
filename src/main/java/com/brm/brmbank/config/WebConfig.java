@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -26,7 +25,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(appUserDetailsService);
+
+        auth.userDetailsService(appUserDetailsService);
 	}
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
@@ -55,9 +55,12 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				// ignoring the guest's urls "
 				.antMatchers("/utilisateur/login","/utilisateur/save","/utilisateur","/utilisateur/delete", "/utilisateur/modifier/{username}", "/utilisateur/details/{username}",
-						"/devise/login","/devise/save","/devise","/delete/{idDevise}", "/delete/{idDevise}", "/abonnes/save", "/abonnes", "/abonnes/delete", "/abonnes/details/{username}", "/abonnes/modifier/{username}")
+						"/devise/save","/devise/delete", "/devise", "/devise/details/{codeDevise}","/abonnes/save", "/abonnes", "/abonnes/delete", "/abonnes/details/{username}", "/abonnes/modifier/{username}",
+                        "/agence/save","/agence","/agence/delete", "/agence/details/{codeAgence}", "/agence/modifier/{codeAgence}",
+                        "/gabs/save","/gabs","/gabs/delete", "/gabs/details/{code}", "/gabs/modifier/{code}")
 				.permitAll()
 				// authenticate all remaining URLS
+                //.antMatchers("/devise").hasAnyRole("USER")
 				.anyRequest().authenticated().and()
 				/* "/logout" will log the user out by invalidating the HTTP Session,
 				 * cleaning up any {link rememberMe()} authentication that was configured, */
@@ -72,10 +75,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
 				// disabling the CSRF - Cross Site Request Forgery
 				.csrf().disable();
 	}
-	@Bean
-    public BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
+
 
 
 }

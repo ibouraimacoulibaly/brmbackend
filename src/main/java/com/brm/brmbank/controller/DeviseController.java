@@ -3,6 +3,7 @@ package com.brm.brmbank.controller;
 import com.brm.brmbank.entities.Devise;
 import com.brm.brmbank.repository.DeviseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,13 +41,32 @@ public class DeviseController {
 		return ResponseEntity.ok().body(devis);
 
 	}
-	
-	//details 
-			@GetMapping(value = "/details/{idDevise}")
-			public Optional<Devise> findById(@PathVariable Long idDevise) {
 
-				Optional<Devise> dev = devise.findById(idDevise);
-				return dev;
-			}
+	//details
+	@CrossOrigin("*")
+	@GetMapping("details/{codeDevise}")
+	public Optional<Devise> findOneByCodeDevise(@PathVariable String codeDevise) {
+
+		Optional<Devise> dev = Optional.ofNullable(devise.findOneByCodeDevise(codeDevise));
+		return dev;
+
+	}
+	@PutMapping("modifier/{codeDevise}")
+	public ResponseEntity<Devise> updateDevise(@PathVariable String codeDevise, @RequestBody Devise devis) {
+		System.out.println("Update Customer with ID = " + devis + "...");
+
+		Optional<Devise> utilisateurData = Optional.ofNullable(devise.findOneByCodeDevise(codeDevise));
+
+		if (utilisateurData.isPresent()) {
+			Devise _gabs = utilisateurData.get();
+			_gabs.setSymbole(_gabs.getSymbole());
+			_gabs.setIdDevise(_gabs.getIdDevise());
+			_gabs.setCode(_gabs.getCodeDevise());
+
+			return new ResponseEntity<>(devise.save(_gabs), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 
 }

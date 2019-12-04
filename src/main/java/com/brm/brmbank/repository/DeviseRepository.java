@@ -1,17 +1,17 @@
 package com.brm.brmbank.repository;
 
 
-
-
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
 import com.brm.brmbank.entities.Devise;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface DeviseRepository extends CrudRepository<Devise, Long>  {
-	
-	
+public interface DeviseRepository extends JpaRepository<Devise, Long> {
+
+
+
+    public Devise findOneByCodeDevise(String codeDevise);
+
 
 }
